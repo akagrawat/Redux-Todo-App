@@ -1,6 +1,10 @@
 # ReduxTodoApp
 
+Live URL: https://ngreduxapp.firebaseapp.com
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.2.0.
+
+It is a basic implementation of Redux in Angular.
 
 ## Development server
 
