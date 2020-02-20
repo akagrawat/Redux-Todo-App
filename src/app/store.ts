@@ -7,14 +7,29 @@ export  interface IAppState {
 }
 
 export const INITIAL_STATE: IAppState = {
-    todos: [],
+    todos: [
+        {
+            id: 1,
+            description: 'Add data list',
+            responsible: 'John',
+            priority: 'low',
+            isCompleted: false
+        },
+        {
+            id: 2,
+            description: 'Modify user CSV file',
+            responsible: 'Dev',
+            priority: 'medium',
+            isCompleted: true
+        }
+    ],
     lastUpdate: null
 }
 
 export function rootReducer(state, action) {
     switch( action.type ) {
         case ADD_TODO:
-            action.todo.id = action.todo.id + 1 ;
+            action.todo.id = state.todos.length + 1 ;
             return Object.assign({}, state, {
                 todos: state.todos.concat(Object.assign({}, action.todo)),
                 lastUpdate: new Date()

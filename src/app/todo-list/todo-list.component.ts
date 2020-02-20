@@ -21,6 +21,9 @@ export class TodoListComponent implements OnInit {
     }
     onSubmit() {
         this.ngRedux.dispatch({ type: ADD_TODO, todo: this.todoForm.value });
+        this.todoFormControls.description.reset();
+        this.todoFormControls.responsible.reset();
+        this.todoFormControls.priority.setValue('low');
     }
 
     toggleTodo(todo) {
