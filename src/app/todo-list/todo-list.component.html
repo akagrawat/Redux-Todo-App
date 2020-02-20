@@ -1,0 +1,56 @@
+<h6>Create Todo:</h6>
+<form (ngSubmit)="onSubmit()" [formGroup]="todoForm">
+    <div class="form-row">
+        <div class="col-auto">
+            <input type="text" class="form-control" placeholder="Description" id="description"
+                formControlName="description" name="description">
+        </div>
+        <div class="col-auto">
+            <input type="text" class="form-control" placeholder="Responsible" id="responsible"
+                formControlName="responsible" name="responsible">
+        </div>
+        <div class="col-auto">
+            <select class="form-control" id="priority" formControlName="priority" name="priority">
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+            </select>
+        </div>
+        <div class="col-auto">
+            <button mdbBtn id="btn1" type="submit" [disabled]="!todoForm.valid" class="btn btn-primary">Create</button>
+        </div>
+    </div>
+</form>
+<br />
+<h6>Todos List:</h6>
+<div *ngIf="(todos | async)?.length!=0">
+    <table class="table">
+        <thead class="thead-inverse">
+            <tr>
+                <th>#</th>
+                <th>Todo Description</th>
+                <th>Responsible</th>
+                <th>Priority</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let t of todos | async">
+                <td><span (click)="toggleTodo(t)">{{ t.id }}</span></td>
+                <td><span (click)="toggleTodo(t)">{{ t.description }}</span></td>
+                <td><span (click)="toggleTodo(t)">{{ t.responsible }}</span></td>
+                <td>
+                    <span *ngIf="t.priority == 'low'" class="badge badge-success">Low</span>
+                    <span *ngIf="t.priority == 'medium'" class="badge badge-warning">Medium</span>
+                    <span *ngIf="t.priority == 'high'" class="badge badge-danger">High</span>
+                </td>
+                <td *ngIf="!t.isCompleted"><button mdbBtn size="sm" (click)="changeTodoStatus(t)" rounded="true"
+                        type="button" color="deep-orange" mdbWavesEffect>Pending</button></td>
+                <td *ngIf="t.isCompleted"><button mdbBtn size="sm" (click)="changeTodoStatus(t)" rounded="true"
+                        type="button" color="dark-green" mdbWavesEffect>Complete</button></td>
+                <td><button mdbBtn size="sm" class="btn btn-primary" (click)="removeTodo(t)">Delete</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

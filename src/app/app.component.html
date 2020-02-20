@@ -1,0 +1,47 @@
+<!--Navbar-->
+<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark bg-primary" [containerInside]="false">
+
+    <!-- Navbar brand -->
+    <mdb-navbar-brand><a class="navbar-brand" href="#">ToDo</a></mdb-navbar-brand>
+
+    <!-- Collapsible content -->
+    <links>
+
+        <!-- Links -->
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link waves-light" mdbWavesEffect>Home<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link waves-light" mdbWavesEffect>Features</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link waves-light" mdbWavesEffect>Pricing</a>
+            </li>
+
+        </ul>
+        <!-- Links -->
+
+    </links>
+    <!-- Collapsible content -->
+
+</mdb-navbar>
+<!--/.Navbar-->
+
+
+
+<div class="container" id="app">
+    <br />
+    <a href="#" target="_blank"><img src="assets/redux4.png" width="300" /></a>
+    <hr>
+    <div>
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">Todos App</h3>
+                <h6 class="card-subtitle mb-2 text-muted">Using Angular & Redux</h6>
+                <app-todo-overview></app-todo-overview>
+                <app-todo-list></app-todo-list>
+            </div>
+        </div>
+    </div>
+</div>
