@@ -1,0 +1,16 @@
+[
+    {
+        "id": 1,
+        "description": "Add data list",
+        "responsible": "John",
+        "priority": "low",
+        "isCompleted": false
+    },
+    {
+        "id": 2,
+        "description": "Modify user CSV file",
+        "responsible": "Dev",
+        "priority": "medium",
+        "isCompleted": true
+    }
+]

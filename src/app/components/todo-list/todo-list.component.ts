@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { NgRedux, select } from '@angular-redux/store'
-import { IAppState } from '../store';
-import { ADD_TODO, TOGGLE_TODO, REMOVE_TODO } from '../action';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { addTodo, toggleTodo, removeTodo, getTodos } from 'src/app/actions/action';
 
 @Component({
     selector: 'app-todo-list',
@@ -10,33 +9,40 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
     styleUrls: ['./todo-list.component.scss']
 })
 export class TodoListComponent implements OnInit {
-    @select() todos;
     todoForm: FormGroup;
+    todo: any;
 
-    constructor(private ngRedux: NgRedux<IAppState>,
-        private formBuilder: FormBuilder) { }
+    constructor(
+        private formBuilder: FormBuilder,
+        private store: Store<any>) { }
 
     ngOnInit() {
         this.createTodoForm();
+        this.store.dispatch(getTodos());
+        console.log(this.store.select('todo'));
+        this.store.select('todo').subscribe((res) => {
+            this.todo = res;
+            console.log(res);
+        })
     }
     onSubmit() {
-        this.ngRedux.dispatch({ type: ADD_TODO, todo: this.todoForm.value });
+        this.store.dispatch(addTodo(this.todoForm.value));
         this.todoFormControls.description.reset();
         this.todoFormControls.responsible.reset();
         this.todoFormControls.priority.setValue('low');
     }
 
     toggleTodo(todo) {
-        this.ngRedux.dispatch({ type: TOGGLE_TODO, id: todo.id });
+        this.store.dispatch(toggleTodo({ id: todo.id }));
     }
 
     removeTodo(todo) {
-        this.ngRedux.dispatch({ type: REMOVE_TODO, id: todo.id });
+        this.store.dispatch(removeTodo({ id: todo.id }));
     }
 
     changeTodoStatus(todo) {
         console.log(todo);
-        this.ngRedux.dispatch({ type: TOGGLE_TODO, id: todo.id });
+        this.store.dispatch(toggleTodo({ id: todo.id }));
     }
 
     createTodoForm() {
