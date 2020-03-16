@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { addTodo, toggleTodo, removeTodo, getTodos } from 'src/app/actions/action';
+import { addTodo, toggleTodo, removeTodo, getTodos, loadTodo } from 'src/app/actions/action';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'app-todo-list',
@@ -11,6 +12,7 @@ import { addTodo, toggleTodo, removeTodo, getTodos } from 'src/app/actions/actio
 export class TodoListComponent implements OnInit {
     todoForm: FormGroup;
     todo: any;
+    demoTodo: Observable<any>;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -18,12 +20,13 @@ export class TodoListComponent implements OnInit {
 
     ngOnInit() {
         this.createTodoForm();
-        this.store.dispatch(getTodos());
+        this.store.dispatch(loadTodo());
         console.log(this.store.select('todo'));
         this.store.select('todo').subscribe((res) => {
             this.todo = res;
             console.log(res);
-        })
+        });
+
     }
     onSubmit() {
         this.store.dispatch(addTodo(this.todoForm.value));

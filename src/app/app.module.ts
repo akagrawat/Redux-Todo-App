@@ -10,7 +10,10 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
+import { TodoEffect } from './effects/todo.effect';
 import { reducer } from './reducers/store';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
     declarations: [
@@ -25,7 +28,12 @@ import { reducer } from './reducers/store';
         ReactiveFormsModule,
         HttpClientModule,
         MDBBootstrapModule.forRoot(),
-        StoreModule.forRoot({ todo: reducer })
+        StoreModule.forRoot({ todo: reducer }),
+        EffectsModule.forRoot([TodoEffect]),
+        StoreDevtoolsModule.instrument({
+            maxAge: 25, // Retains last 25 states
+            // logOnly: environment.production, // Restrict extension to log-only mode
+        }),
     ],
     providers: [],
     bootstrap: [AppComponent],

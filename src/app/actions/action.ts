@@ -32,6 +32,15 @@ export const removeTodo = createAction(
 export const removeAllTodo = createAction(
     '[Todo] Remove All Todo'
 );
+
+export const loadTodo = createAction(
+    '[Todo] Load Todo'
+)
+
+export const loadTodoSuccess = createAction(
+    '[todo] Todo loaded success',
+    props<{ todos: Array<any> }>()
+)
 // export class GetTodos implements Action {
 //     readonly type = TodosActionType.GET_TODOS;
 // }

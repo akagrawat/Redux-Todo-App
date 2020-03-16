@@ -23,6 +23,7 @@
     "@ngrx/core": "^1.2.0",
     "@ngrx/effects": "^8.6.0",
     "@ngrx/store": "^9.0.0",
+    "@ngrx/store-devtools": "^9.0.0",
     "angular-bootstrap-md": "^8.2.0",
     "animate.css": "^3.7.2",
     "bootstrap": "^4.4.1",

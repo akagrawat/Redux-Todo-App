@@ -1,27 +1,15 @@
 import { ITodo } from '../models/todo';
-import * as TodosActionType from '../actions/action'
-import { createReducer, on } from '@ngrx/store';
+import * as TodosActionType from '../actions/action';
+import { createReducer, on, State } from '@ngrx/store';
+import { stat } from 'fs';
+import { convertActionBinding } from '@angular/compiler/src/compiler_util/expression_converter';
 export interface IAppState {
     todos: ITodo[];
     lastUpdate: Date;
 }
 export const INITIAL_STATE: IAppState = {
-    todos: [
-        {
-            id: 1,
-            description: 'Add data list',
-            responsible: 'John',
-            priority: 'low',
-            isCompleted: false
-        },
-        {
-            id: 2,
-            description: 'Modify user CSV file',
-            responsible: 'Dev',
-            priority: 'medium',
-            isCompleted: true
-        }
-    ],
+
+    todos: [],
     lastUpdate: null
 }
 
@@ -92,6 +80,12 @@ const rootReducer = createReducer(
             todos: [],
             lastUpdate: null
         }
+    })),
+    on(TodosActionType.loadTodo, (state, action) => ({
+        ...state
+    })),
+    on(TodosActionType.loadTodoSuccess, (state, action) => ({
+        ...state, ...action
     }))
 );
 
