@@ -26,7 +26,7 @@ export class TodoEffect {
         this.actions$.pipe(
             ofType(TodosActionType.loadTodo),
             mergeMap(() => {
-                return this.todoServices.loadTodoData().pipe(map((todo: ITodo[]) => (TodosActionType.loadTodoSuccess({ todos: todo }))), catchError(() => EMPTY));
+                return this.todoServices.loadTodoData().pipe(map((todo: ITodo[]) => (TodosActionType.loadTodoSuccess({ todos: todo }))), catchError((error) => TodosActionType.loadTodoFail(error)));
             })
         )
     )

@@ -1,16 +1,5 @@
-import { Action } from '@ngrx/store'
 import { createAction, props } from '@ngrx/store';
 import { ITodo } from '../models/todo';
-
-// export enum X {
-//     ADD_TODO = '[Todo] Add Todo',
-//     GET_TODOS = 'GET_TODOS',
-//     GET_TODOS_SUCCESS = "GET_TODOS_SUCCESS",
-//     TOGGLE_TODO = 'TOGGLE_TODO',
-//     REMOVE_TODO = 'REMOVE_TODO',
-//     GET_TODOS_FAILED = 'GET-TODOS-FAILED',
-//     REMOVE_ALL_TODOS = 'REMOVE_ALL_TODOS'
-// }
 
 export const addTodo = createAction(
     '[Todo] Add Todo',
@@ -38,21 +27,20 @@ export const loadTodo = createAction(
 )
 
 export const loadTodoSuccess = createAction(
-    '[todo] Todo loaded success',
+    '[Todo] Todo loaded success',
     props<{ todos: Array<any> }>()
 )
-// export class GetTodos implements Action {
-//     readonly type = TodosActionType.GET_TODOS;
-// }
 
-// export class GetTodosSuccess implements Action {
-//     readonly type = TodosActionType.GET_TODOS_SUCCESS;
-//     constructor(public payload: Array<any>) { }
-// }
+export const loadTodoFail = createAction(
+    '[Todo] Todo load fail',
+    props<any>()
+)
 
-// export class GetTodosFailed implements Action {
-//     readonly type = TodosActionType.GET_TODOS_FAILED;
-//     constructor(public payload: string) { }
-// }
+export const startSpinner = createAction(
+    '[Spinner] Show Spinner'
+)
 
-// export type TodosActions = GetTodos | GetTodosSuccess | GetTodosFailed;
+export const stopSpinner = createAction(
+    '[Spinner] Stop Spinner'
+)
+

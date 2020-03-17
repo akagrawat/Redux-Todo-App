@@ -14,6 +14,8 @@ import { TodoEffect } from './effects/todo.effect';
 import { reducer } from './reducers/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { NgxSpinnerModule } from "ngx-spinner";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 @NgModule({
     declarations: [
@@ -27,6 +29,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
+        NgxSpinnerModule,
+        BrowserAnimationsModule,
         MDBBootstrapModule.forRoot(),
         StoreModule.forRoot({ todo: reducer }),
         EffectsModule.forRoot([TodoEffect]),

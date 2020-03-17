@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { addTodo, toggleTodo, removeTodo, getTodos, loadTodo } from 'src/app/actions/action';
-import { Observable } from 'rxjs';
+import { addTodo, toggleTodo, removeTodo, loadTodo, startSpinner } from 'src/app/actions/action';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
     selector: 'app-todo-list',
@@ -12,10 +12,10 @@ import { Observable } from 'rxjs';
 export class TodoListComponent implements OnInit {
     todoForm: FormGroup;
     todo: any;
-    demoTodo: Observable<any>;
 
     constructor(
         private formBuilder: FormBuilder,
+        public spinner: NgxSpinnerService,
         private store: Store<any>) { }
 
     ngOnInit() {
@@ -26,26 +26,41 @@ export class TodoListComponent implements OnInit {
             this.todo = res;
             console.log(res);
         });
-
     }
     onSubmit() {
-        this.store.dispatch(addTodo(this.todoForm.value));
-        this.todoFormControls.description.reset();
-        this.todoFormControls.responsible.reset();
-        this.todoFormControls.priority.setValue('low');
+        this.store.dispatch(startSpinner());
+
+        setTimeout(() => {
+            this.store.dispatch(addTodo(this.todoForm.value));
+            this.todoFormControls.description.reset();
+            this.todoFormControls.responsible.reset();
+            this.todoFormControls.priority.setValue('low');
+        }, 1000)
+
+
     }
 
     toggleTodo(todo) {
-        this.store.dispatch(toggleTodo({ id: todo.id }));
+        this.store.dispatch(startSpinner());
+        setTimeout(() => {
+            this.store.dispatch(toggleTodo({ id: todo.id }));
+        }, 1000)
+
     }
 
     removeTodo(todo) {
-        this.store.dispatch(removeTodo({ id: todo.id }));
+        this.store.dispatch(startSpinner());
+        setTimeout(() => {
+            this.store.dispatch(removeTodo({ id: todo.id }));
+        }, 1000)
+
     }
 
     changeTodoStatus(todo) {
-        console.log(todo);
-        this.store.dispatch(toggleTodo({ id: todo.id }));
+        this.store.dispatch(startSpinner());
+        setTimeout(() => {
+            this.store.dispatch(toggleTodo({ id: todo.id }));
+        }, 1000)
     }
 
     createTodoForm() {

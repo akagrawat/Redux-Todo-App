@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { removeAllTodo } from 'src/app/actions/action';
+import { removeAllTodo, startSpinner } from 'src/app/actions/action';
 
 @Component({
     selector: 'app-todo-overview',
@@ -8,8 +8,6 @@ import { removeAllTodo } from 'src/app/actions/action';
     styleUrls: ['./todo-overview.component.scss']
 })
 export class TodoOverviewComponent implements OnInit {
-    // @select() todos;
-    // @select() lastUpdate;
     todo: any;
     constructor(private store: Store<any>) { }
 
@@ -20,7 +18,10 @@ export class TodoOverviewComponent implements OnInit {
     }
 
     clearTodos() {
-        this.store.dispatch(removeAllTodo());
+        this.store.dispatch(startSpinner())
+        setTimeout(() => {
+            this.store.dispatch(removeAllTodo());
+        })
     }
 
 }
