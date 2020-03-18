@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { removeAllTodo, startSpinner } from 'src/app/actions/action';
+import * as todos from '../../reducers/todo';
 
 @Component({
     selector: 'app-todo-overview',
@@ -12,7 +13,7 @@ export class TodoOverviewComponent implements OnInit {
     constructor(private store: Store<any>) { }
 
     ngOnInit() {
-        this.store.select('todo').subscribe((res) => {
+        this.store.select(todos.STATE_KEY).subscribe((res) => {
             this.todo = res;
         })
     }

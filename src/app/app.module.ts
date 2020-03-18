@@ -11,11 +11,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { TodoEffect } from './effects/todo.effect';
-import { reducer } from './reducers/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { metaReducers, reducers } from './reducers'
 
 @NgModule({
     declarations: [
@@ -32,7 +32,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
         NgxSpinnerModule,
         BrowserAnimationsModule,
         MDBBootstrapModule.forRoot(),
-        StoreModule.forRoot({ todo: reducer }),
+        StoreModule.forRoot(reducers, { metaReducers }),
         EffectsModule.forRoot([TodoEffect]),
         StoreDevtoolsModule.instrument({
             maxAge: 25, // Retains last 25 states

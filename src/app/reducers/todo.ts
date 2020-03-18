@@ -1,11 +1,14 @@
 import { ITodo } from '../models/todo';
 import * as TodosActionType from '../actions/action';
-import { createReducer, on, State } from '@ngrx/store';
+import { createReducer, on } from '@ngrx/store';
+
+export const STATE_KEY = 'todo';
 
 export interface IAppState {
     todos: ITodo[];
     loading: boolean;
     error: any;
+    demo: boolean;
     lastUpdate: Date;
 }
 export const INITIAL_STATE: IAppState = {
@@ -13,19 +16,20 @@ export const INITIAL_STATE: IAppState = {
     todos: [],
     loading: false,
     error: null,
+    demo: true,
     lastUpdate: null
 }
 
-const rootReducer = createReducer(
+export const reducer = createReducer(
     INITIAL_STATE,
     on(TodosActionType.addTodo, (state, action) => ({
         ...state, ...{
             todos: state.todos.concat(Object.assign({}, action, { id: (state.todos.length != 0) ? (state.todos[state.todos.length - 1].id + 1) : 0 })),
             lastUpdate: new Date()
-        }, loading: false
+        }, loading: false, demo: false
     })),
     on(TodosActionType.toggleTodo, (state, action) => ({
-        ...state, ...toggleTodo(state, action), loading: false
+        ...state, loading: false, ...toggleTodo(state, action),
     })),
     on(TodosActionType.removeTodo, (state, action) => ({
         ...state,
@@ -50,17 +54,8 @@ const rootReducer = createReducer(
     on(TodosActionType.loadTodoFail, (state, action) => ({
         ...state, loading: false, error: action
     })),
-    on(TodosActionType.startSpinner, (state, action) => ({
-        ...state, loading: true
-    })),
-    on(TodosActionType.stopSpinner, (state, action) => ({
-        ...state, loading: false
-    }))
 );
 
-export function reducer(state: IAppState | undefined, action) {
-    return rootReducer(state, action);
-}
 
 function toggleTodo(state, action) {
     var todo = state.todos.find(t => t.id === action.id);
