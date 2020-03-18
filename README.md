@@ -3,8 +3,11 @@
 Live URL: https://ngreduxapp.firebaseapp.com
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.2.0.
+And Ngrx version 9.0.1
 
-It is a basic implementation of Redux in Angular.
+Purpose of this project to implement Redux in Angular. This project generated with NGRX.
+Ngrx is a library for Angular that implements Redux in a reactive fashion.
+
 
 ## Development server
 
